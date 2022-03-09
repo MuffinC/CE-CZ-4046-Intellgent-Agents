@@ -2,7 +2,7 @@
 Purpose of this file is just to declare abstraction models that willl be defined
 during the process itself
 """
-class mdp1:
+class MDP:
     def __init__(self, states, actions, discount):
 
         self.states = states

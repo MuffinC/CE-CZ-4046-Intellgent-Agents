@@ -1,6 +1,6 @@
 import enum
 
-from  markovdec_abstract import mdp1
+from  markovdec_abstract import MDP
 import preset
 
 class maze_movement(enum.Enum):
@@ -10,7 +10,7 @@ class maze_movement(enum.Enum):
     MOVE_RIGHT = enum.auto()
 
 
-class Maze(mdp1):
+class Maze(MDP):
     def __init__(self, grid, reward_mapping, starting_point, discount_factor):
         self.grid = grid
         self.reward_mapping = reward_mapping
@@ -19,20 +19,24 @@ class Maze(mdp1):
 #the width and height are for the second part when we want to customise the map
         self.width = len(grid)
         self.height = len(grid[0])
-
+        possible_states = {
+            (x, y): {}
+            for x in range(self.width)
+            for y in range(self.height)
+            if grid[x][y] != '#'
+        }
         possible_actions = [
             maze_movement.MOVE_UP,
             maze_movement.MOVE_DOWN,
             maze_movement.MOVE_LEFT,
             maze_movement.MOVE_RIGHT,
         ]
+        super().__init__(possible_states, possible_actions, discount_factor)
 
-        possible_states = {
-            (x, y): {}
-            for x in range(self.width)
-            for y in range(self.height)
-            if grid[x][y] != 'w'
-        }
+        for state_position in possible_states:
+            possible_states[state_position] = \
+                self._form_action_next_state_map(state_position, possible_actions)
+
     def transition_model(self, state, action, next_state) -> float:
         # if state and action not present, should throw and error
         # will return probability
@@ -40,7 +44,7 @@ class Maze(mdp1):
         return next_state_probability_map.get(next_state, 0)['probability']
 
     def reward_function(self, state):
-        #return reward value fo the state
+        #return reward value to the state
         colour = self.grid[state[0]][state[1]]
         return self.reward_mapping[colour]
 
