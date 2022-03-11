@@ -69,4 +69,4 @@ number of iterations required: 161
 (9, 7) - utility: 74.709
 (9, 8) - utility: 75.956
 (9, 9) - utility: 75.119
----optimal policy grid (w = wall)---
+---optimal policy grid (# = wall)---

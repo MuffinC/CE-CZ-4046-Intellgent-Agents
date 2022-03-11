@@ -6,6 +6,9 @@ from preset import *
 from random_map import generate_maze
 from maze import Maze, maze_movement
 from plotter import plotter
+import time
+
+
 
 def solve_MDP():
     """
@@ -69,6 +72,7 @@ def solve_MDP():
 
 
     #We will now begin task 2 using a self derived complicated map
+    #i will re run the whole process of task 1
     maze = Maze(
         grid=compli_map,
         reward_mapping=value_legend,
@@ -88,7 +92,6 @@ def solve_MDP():
 
     # For approximation of reference utilities given in instructions,
     # use discount factor of 0.95 and maximum error threshold of 1.4.
-    # Values obtained through trial and error.
     maze = Maze(
         grid=compli_map,
         reward_mapping=value_legend,
@@ -213,7 +216,7 @@ def _show_maze_result(maze, result, save_file_name=None):
 
         optimal_policy_grid[state_position[0]][state_position[1]] = action_symbol
 
-    line = '---optimal policy grid (w = wall)---'
+    line = '---optimal policy grid (# = wall)---'
     print(line)
     lines.append(line)
 

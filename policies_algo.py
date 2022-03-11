@@ -87,8 +87,7 @@ def value_iteration(mdp: MDP,max_error=1,verbose=False):
 
             # if |U′[s]−U[s]| > δ then δ ← |U′[s]−U[s]|
 
-            abs_utility_difference = abs(new_data[state_x] - \
-                                         cur_data[state_x])
+            abs_utility_difference = abs(new_data[state_x] - cur_data[state_x])
 
             if abs_utility_difference > max_utility_change:
                 max_utility_change = abs_utility_difference
@@ -103,8 +102,7 @@ def value_iteration(mdp: MDP,max_error=1,verbose=False):
             )
 
         # until δ < ϵ(1−γ)/γ
-        convergence = max_utility_change < \
-                        max_error * (1 - mdp.discount) / mdp.discount
+        convergence = max_utility_change < max_error * (1 - mdp.discount) / mdp.discount
 
     #return both value iteration outcome and optimal policy
     # for policy extraction step and also the number of iterations
